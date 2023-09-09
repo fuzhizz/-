@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+    "http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+ <package name="day02" namespace="/de" extends="struts-default">
+    <action name="login" class="action.DlTest" method="Logins">
+        <result name="success">/shouye.jsp</result>
+        <result name="err">/shibai.jsp</result>
+      </action>
+    <action name="fabiao" class="action.DlTest" method="Fabiao">
+      <result name="ok">/chenggong.jsp</result>
+      </action>
+      <action name="zhuce" class="action.DlTest" method="Zhuce">
+      <result name="ok">/chenggong.jsp</result>
+      <result name="err">/shibai.jsp</result>
+      </action>
+ </package>
+</struts>

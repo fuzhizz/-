@@ -1,0 +1,67 @@
+建表
+用户表
+create table user07(
+       ID number(10) primary key,
+       userid varchar2(10) not null,   用户id
+       pwd varchar2(20) not null,		密码
+       nickname varchar2(10) not null,  昵称
+       name varchar2(10) not null,		真实姓名
+       qq varchar2(20),					qq
+       email varchar2(20)				邮箱
+)
+
+帖子表
+create table post07(
+		id number(10) primary key,
+		name varchar2(20),				帖名
+		usid varchar2(10) not null,		用户id	
+		usname varchar2(10),			用户名
+		conten varchar2(300) not null,	内容
+		posttime varchar2(20) not null,	发帖时间
+		djl number(10) not null			点击量
+)
+
+回帖表
+create table reply07(
+		id number(10) primary key,
+		conten varchar2(100) not null,	内容
+		posttime varchar2(20) not null,	回帖时间
+		pid number(10),					回帖id
+		usid varchar2(10) not null		用户id
+		usname varchar2(10)				用户名
+)		
+
+建序列
+create sequence user07_idseq start with 1 increment by 1;
+create sequence post07_id_seq start with 1 increment by 1;
+create sequence reply07_id_seq start with 1 increment by 1;
+
+建触发器
+CREATE OR REPLACE TRIGGER use07_trigger 
+BEFORE INSERT ON user07        
+FOR EACH ROW WHEN(new.id IS NULL) 
+BEGIN
+  select user07_id_seq.nextval into :new.id from dual;   
+END;
+
+CREATE OR REPLACE TRIGGER post07_trigger 
+BEFORE INSERT ON post07        
+FOR EACH ROW WHEN(new.id IS NULL) 
+BEGIN
+  select post07_id_seq.nextval into :new.id from dual;   
+END;
+
+CREATE OR REPLACE TRIGGER reply07_trigger 
+BEFORE INSERT ON reply07       
+FOR EACH ROW WHEN(new.id IS NULL) 
+BEGIN
+  select reply07_id_seq.nextval into :new.id from dual;   
+END;
+
+
+插入数据
+INSERT INTO user07(userid,pwd,nickname,name) VALUES('admin','admin','admin','test');
+insert into post07(name,usid,usname,conten,posttime,djl)values('大海啊','001','admin','全是水....','2019.6.18.14:21','0')
+insert into post07(name,usid,usname,conten,posttime,djl)values('西湖啊','002','admin','我的泪....','2019.6.18.22:09','0')
+insert into post07(name,usid,usname,conten,posttime,djl)values('苍天啊','003','admin','真是蓝....','2019.6.18.22:11','0')
+insert into post07(name,usid,usname,conten,posttime,djl)values('大地啊','004','admin','非常宽....','2019.6.18.23:13','0')
